@@ -5,7 +5,7 @@ import java.util.regex.*;
 import java.sql.ResultSet;
 
 
-public class Dato {
+public abstract class Dato {
 
     protected String TABLE;
     protected String[] COLUMNS;
@@ -41,7 +41,7 @@ public class Dato {
     }
 
     public Tabla buscarPorID(String id) {
-        String sql = "SELECT * FROM " + TABLE + "WHERE id = " + id;
+        String sql = "SELECT * FROM " + TABLE + " WHERE id = " + id;
         return new Tabla((ResultSet) dbc.query(sql));
     }
 

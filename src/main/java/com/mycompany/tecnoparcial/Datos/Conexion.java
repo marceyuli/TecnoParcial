@@ -14,7 +14,7 @@ public class Conexion {
     private Connection con = null;
 
     public Conexion() {
-        this.getConexion();
+
     }
 
     public Connection getConexion() {
