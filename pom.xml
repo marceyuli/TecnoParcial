@@ -11,4 +11,13 @@
         <maven.compiler.target>11</maven.compiler.target>
         <exec.mainClass>com.mycompany.tecnoparcial.TecnoParcial</exec.mainClass>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.6.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/librerias/postgresql-42.6.0.jar</systemPath>
+        </dependency>
+    </dependencies>
 </project>

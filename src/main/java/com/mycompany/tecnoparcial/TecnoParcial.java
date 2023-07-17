@@ -4,6 +4,9 @@
 
 package com.mycompany.tecnoparcial;
 
+import com.mycompany.tecnoparcial.Datos.DUsuario;
+import com.mycompany.tecnoparcial.Datos.Dato;
+
 /**
  *
  * @author USER
@@ -11,6 +14,8 @@ package com.mycompany.tecnoparcial;
 public class TecnoParcial {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        System.out.println("holaaa");
+        Dato usuario = new DUsuario();
+        // usuario.crear(["asd"]);
     }
 }

@@ -6,20 +6,22 @@ import java.util.logging.Logger;
 
 public class Conexion {
 
-    private final String base = "db_grupo01sc";
-    private final String user = "grupo01sc";
-    private final String password = "grup001grup008";
-    private final String url = "jdbc:postgresql://tecnoweb.org.bo:5432/" + base;
+    private final String base = "tecno";
+    private final String user = "tecnouser";
+    private final String password = "tecnopass";
+    private final String url = "jdbc:postgresql://localhost:5432/" + base;
     private final String driver = "org.postgresql.Driver";
     private Connection con = null;
 
     public Conexion() {
+        this.getConexion();
     }
 
     public Connection getConexion() {
         try {
             Class.forName(this.driver);
             con = (Connection) DriverManager.getConnection(this.url, this.user, this.password);
+            System.out.println("Conetaco correctamente");
         } catch (SQLException e) {
             System.err.println(e);
         } catch (ClassNotFoundException ex) {
