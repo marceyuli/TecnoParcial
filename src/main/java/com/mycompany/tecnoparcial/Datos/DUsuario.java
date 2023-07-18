@@ -14,13 +14,13 @@ public class DUsuario extends Dato{
             "password",
         };
         this.TYPES = new String[]{
-            Dato.Datatypes.STRING,
-            Dato.Datatypes.STRING,
-            Dato.Datatypes.STRING,
-            Dato.Datatypes.STRING,
-            Dato.Datatypes.STRING,
-            Dato.Datatypes.STRING,
-            Dato.Datatypes.STRING,
+            Datatypes.STRING,
+            Datatypes.STRING,
+            Datatypes.STRING,
+            Datatypes.STRING,
+            Datatypes.STRING,
+            Datatypes.STRING,
+            Datatypes.STRING,
         };
     }
 }

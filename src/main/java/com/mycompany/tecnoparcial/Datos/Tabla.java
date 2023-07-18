@@ -16,21 +16,22 @@ public class Tabla {
 
     public Tabla(ResultSet result){
         try {
-            ResultSetMetaData rsmd = result.getMetaData();
-            int columnas = rsmd.getColumnCount();
-            nombres=new String[columnas];
+            ResultSetMetaData resultSetMetaData = result.getMetaData();
+            int nroColumnas = resultSetMetaData.getColumnCount();
+            nombres=new String[nroColumnas];
             
-            for(int i=1;i<=columnas;++i){
-                nombres[i-1]=rsmd.getColumnName(i);
+            for(int i=1;i<=nroColumnas;++i){
+                nombres[i-1]=resultSetMetaData.getColumnName(i);
             }
             
             while(result.next()){
                 List<String> a = new ArrayList<>();
-                for (int i = 1; i <= columnas; i++) {
+                for (int i = 1; i <= nroColumnas; i++) {
                     a.add(result.getString(i));
                 }
                 data.add(a);
-            }} catch (SQLException ex) {
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(Tabla.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

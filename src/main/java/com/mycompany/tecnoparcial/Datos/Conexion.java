@@ -18,6 +18,9 @@ public class Conexion {
     }
 
     public Connection getConexion() {
+        if (con != null) {
+            return con;
+        }
         try {
             Class.forName(this.driver);
             con = (Connection) DriverManager.getConnection(this.url, this.user, this.password);
@@ -31,6 +34,9 @@ public class Conexion {
     }
 
     public void connect() {
+        if (con != null) {
+            return;
+        }
         try {
             Class.forName(this.driver);
             con = DriverManager.getConnection(url, user, password);

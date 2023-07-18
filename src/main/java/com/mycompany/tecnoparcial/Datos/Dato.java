@@ -15,13 +15,7 @@ public abstract class Dato {
     public Dato() {
         this.dbc = new Conexion();
     }
-
-    public Dato(String table, String[] Columns) {
-        this.TABLE = table;
-        this.COLUMNS = Columns;
-        this.dbc = new Conexion();
-    }
-
+    
     private boolean isNumber(Object arg) {
         String regex = "^(\\d+(\\.\\d+)?)$";
         return Pattern.matches(regex, String.valueOf(arg));
