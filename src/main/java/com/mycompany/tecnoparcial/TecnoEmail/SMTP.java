@@ -41,7 +41,7 @@ public class SMTP {
         this.output.writeBytes(COMAND);
         System.out.println("S:" + this.input.readLine());
     }
-    
+
     public void reset() throws IOException {
         COMAND = "RSET " + JMP;
         this.output.writeBytes(COMAND);
@@ -53,8 +53,7 @@ public class SMTP {
         this.output.writeBytes(COMAND);
         System.out.println("S:" + this.input.readLine());
     }
-    
-    
+
     public void sendMail(String RCPT, String SUBJECT, String DATA) throws IOException {
         COMAND = "MAIL FROM: " + FROM + JMP;
         this.output.writeBytes(COMAND);

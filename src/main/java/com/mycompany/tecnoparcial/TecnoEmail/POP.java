@@ -57,17 +57,17 @@ public class POP {
 
         String list = getList();
         String lines[] = list.split("\\r?\\n");
-        String[] data= new String[]{};
-        for(int i=0;i<lines.length;++i){
-            lines[i]=lines[i].toLowerCase();
-            if(lines[i].contains("messages") || lines[i].contains("message")){
+        String[] data = new String[] {};
+        for (int i = 0; i < lines.length; ++i) {
+            lines[i] = lines[i].toLowerCase();
+            if (lines[i].contains("messages") || lines[i].contains("message")) {
                 data = lines[i].split("\\s+");
-                //System.out.println("DATOS "+data[1]);
+                // System.out.println("DATOS "+data[1]);
                 break;
             }
         }
-        
-        //System.out.println("LISTADO: "+list);
+
+        // System.out.println("LISTADO: "+list);
         this.emails = Integer.parseInt(data[1]);
 
     }
@@ -100,7 +100,6 @@ public class POP {
 
     public String getSubject(String mail) {
         String lines[] = mail.split("\\n");
-        //System.out.println("Tamano " + lines.length);
         String line = "";
         int pos_found = -1;
         boolean found = false;
@@ -108,25 +107,25 @@ public class POP {
             line = lines[i];
             if (line.contains("Subject:")) {
                 found = true;
-                pos_found=i;
+                pos_found = i;
                 break;
             }
         }
-        
-        if(found){
-        String sub = "Subject:";
-        String fila = lines[pos_found+1];
-        int pos = line.indexOf(sub);
 
-        return line.substring(pos+sub.length()+1,line.length())+fila;
-        }else{
+        if (found) {
+            String sub = "Subject:";
+            String fila = lines[pos_found + 1];
+            int pos = line.indexOf(sub);
+
+            return line.substring(pos + sub.length() + 1, line.length()) + fila;
+        } else {
             return "";
         }
     }
-    
+
     public String getFrom(String mail) {
         String lines[] = mail.split("\\r?\\n");
-        //System.out.println("Tamano " + lines.length);
+        // System.out.println("Tamano " + lines.length);
         String line = "";
         boolean found = false;
         for (int i = 0; i < lines.length; ++i) {
@@ -136,15 +135,15 @@ public class POP {
                 break;
             }
         }
-        
-        if(found){
+
+        if (found) {
             String[] currencies = line.split(":");
             String email = currencies[1];
             email = email.replace('<', ' ');
             email = email.replace('>', ' ');
             email = email.trim();
-        return email;
-        }else{
+            return email;
+        } else {
             return "";
         }
     }
@@ -153,11 +152,11 @@ public class POP {
         String Data = "";
         String Line = "";
         while ((Line = buffer.readLine()) != null) {
-            //ULTIMA LINEA
+            // ULTIMA LINEA
             if (Line.equals(".")) {
                 break;
             }
-            //LINEA COMIENZA CON .
+            // LINEA COMIENZA CON .
             if ((Line.length() > 0) && (Line.charAt(0) == '.')) {
                 Line = Line.substring(1);
             }

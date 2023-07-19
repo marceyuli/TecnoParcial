@@ -9,6 +9,7 @@ public class DProducto extends Dato{
             "categoriaid",
             "nombre",
             "descripcion",
+            "cantidad",
             "precio",
         };
         this.TYPES = new String[]{
@@ -16,6 +17,7 @@ public class DProducto extends Dato{
             Datatypes.INTEGER,
             Datatypes.STRING,
             Datatypes.STRING,
+            Datatypes.INTEGER,
             Datatypes.FLOAT,
         };
     }

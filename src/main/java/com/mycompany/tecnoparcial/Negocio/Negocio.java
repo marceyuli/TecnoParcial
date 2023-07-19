@@ -1,4 +1,5 @@
 package com.mycompany.tecnoparcial.Negocio;
+
 import org.rendersnake.HtmlCanvas;
 
 import com.mycompany.tecnoparcial.Datos.*;
@@ -8,7 +9,6 @@ import static org.rendersnake.HtmlAttributesFactory.*;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.sql.Time;
 import java.util.Arrays;
 
 public abstract class Negocio {
@@ -25,38 +25,38 @@ public abstract class Negocio {
 
     public String crear(String args[]) {
         try {
-            
-            String mensajeValidacion=this.validarDatos(args);
-            if(mensajeValidacion.length()>1){
+
+            String mensajeValidacion = this.validarDatos(args);
+            if (mensajeValidacion.length() > 1) {
                 return mensajeValidacion;
             }
             Object[] datosParseados = this.parsearDatos(args);
             if (dato.crear(datosParseados)) {
                 return TablaHTML("Registro Completado !");
             }
-                    
+
         } catch (IOException e) {
             System.err.println(e);
-            
+
         }
         return "<h1>Ups! Algo Pasó! :(</h1>";
     }
 
-    public String Editar(String args[]) {
+    public String editar(String args[]) {
         try {
-            Object[] datosTotales=new Object[args.length];
-            Integer id=Integer.parseInt(args[0]);
-            datosTotales[args.length-1]=id;
-            
-            String mensajeValidacion= this.validarDatos(Arrays.copyOfRange(args, 1, args.length));
-            if(mensajeValidacion.length()>1){
+            Object[] datosTotales = new Object[args.length];
+            Integer id = Integer.parseInt(args[0]);
+            datosTotales[args.length - 1] = id;
+
+            String mensajeValidacion = this.validarDatos(Arrays.copyOfRange(args, 1, args.length));
+            if (mensajeValidacion.length() > 1) {
                 return mensajeValidacion;
             }
-           
+
             Object[] datosParseados = this.parsearDatos(Arrays.copyOfRange(args, 1, args.length));
             for (int i = 0; i < datosParseados.length; i++) {
                 Object datoParseado = datosParseados[i];
-                datosTotales[i]=datoParseado;
+                datosTotales[i] = datoParseado;
             }
             if (dato.editar(datosTotales)) {
                 return TablaHTML("Registro Completado !");
@@ -80,9 +80,10 @@ public abstract class Negocio {
         }
         return "<h1>Ups! Algo Pasó! :(</h1>";
     }
-    public String buscar(String columnas[],Object parametros[]) {
-        
-        Tabla data = this.dato.buscar(columnas,parametros);
+
+    public String buscar(String columnas[], Object parametros[]) {
+
+        Tabla data = this.dato.buscar(columnas, parametros);
         try {
             if (data.getFila() != 0) {
                 return TablaHTML("Consulta Exitósa");
@@ -94,14 +95,15 @@ public abstract class Negocio {
         }
         return "<h1>Ups! Algo Pasó! :(</h1>";
     }
-    public String getID(String columnas[],Object parametros[]) {
-        
-        Tabla data = this.dato.buscar(columnas,parametros);
-        String id=data.getData(0, 0);
+
+    public String getID(String columnas[], Object parametros[]) {
+
+        Tabla data = this.dato.buscar(columnas, parametros);
+        String id = data.getData(0, 0);
         return id;
     }
 
-    public String Eliminar(String id) {
+    public String eliminar(String id) {
         try {
             if (this.dato.eliminar(id)) {
                 return TablaHTML("Consulta Exitósa");
@@ -114,11 +116,12 @@ public abstract class Negocio {
 
     public String TablaHTML(String title) throws IOException {
         Tabla data = this.dato.listar();
-       
+
         this.html.style().write(styles)._style();
+        this.html.html().title().write(title)._title()._html();
+        this.html.html().h1().write(title)._h1();
         this.html.html().div(class_("wrapper"));
         this.html.table(class_(" c-table"));
-
         this.html.thead(class_("c-table__header")).tr();
         for (String nombre : data.nombres) {
             this.html.th(class_("c-table__col-label")).write(nombre)._th();
@@ -136,7 +139,7 @@ public abstract class Negocio {
         this.html._tbody()._table()._div()._html();
 
         String innerHTML = this.html.toHtml();
-        innerHTML= "Content-Type: text/html; charset=\"UTF-8\"\n" +innerHTML;
+        innerHTML = "Content-Type: text/html; charset=\"UTF-8\"\n" + innerHTML;
         this.html = new HtmlCanvas();
         return innerHTML;
     }
@@ -183,13 +186,6 @@ public abstract class Negocio {
                             throw new Exception(mensajeValidacion);
                         }
                         break;
-                    case Dato.Datatypes.TIME:
-                        if (!validarTiempo(datos[i])) {
-                            mensajeValidacion = "Parametro incorrecto en posicion: " + i
-                                    + " : " + columnas[i] + "Verifique que sea un Tiempo correcto";
-                            throw new Exception(mensajeValidacion);
-                        }
-                        break;
                 }
 
             }
@@ -200,20 +196,19 @@ public abstract class Negocio {
     }
 
     private boolean validarFecha(String dato) {
-        if (dato.length() < 10 || dato.length() > 10) {
-            return false;
-        }
-        return true;
+        return ParseUtils.tryParseDate(dato);
     }
-    private boolean validarTiempo(String dato) {
-        return ParseUtils.tryParseTime(dato);
-    }
+
     private boolean validarFloat(String dato) {
         return ParseUtils.tryParseFloat(dato);
     }
 
     private boolean validarInteger(String dato) {
         return ParseUtils.tryParseInt(dato);
+    }
+
+    private boolean validarString(String dato) {
+        return ParseUtils.tryParseString(dato);
     }
 
     private Object[] parsearDatos(String[] args) {
@@ -234,12 +229,8 @@ public abstract class Negocio {
                 case Dato.Datatypes.DATE:
                     datosParseados[i] = Date.valueOf(args[i]);
                     break;
-                case Dato.Datatypes.TIME:
-                    
-                    datosParseados[i] = Time.valueOf(args[i]+":00");
-                    break;
-                 case Dato.Datatypes.STRING:
-                    datosParseados[i] =(args[i]);
+                case Dato.Datatypes.STRING:
+                    datosParseados[i] = (args[i]);
                     break;
             }
 
@@ -247,10 +238,4 @@ public abstract class Negocio {
         return datosParseados;
     }
 
-    boolean validarString(String dato) {
-        if (dato.length() == 0) {
-            return false;
-        }
-        return true;
-    }
 }

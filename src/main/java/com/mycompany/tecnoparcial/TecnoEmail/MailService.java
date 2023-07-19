@@ -15,7 +15,7 @@ public class MailService {
     POP pop;
     SMTP smtp;
 
-    public MailService(){
+    public MailService() {
         pop = new POP();
         smtp = new SMTP();
     }
@@ -34,11 +34,13 @@ public class MailService {
 
         return e;
     }
+
     /**
      * Envia un mail y ejecuta una tarea
+     * 
      * @param from
      * @param to
-     * @throws IOException 
+     * @throws IOException
      */
     public void sendMail(int from, int to) throws IOException, InterruptedException {
         System.out.println("Mensajes por responder: " + (to - from + 1));

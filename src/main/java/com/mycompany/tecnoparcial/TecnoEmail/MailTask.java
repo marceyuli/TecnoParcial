@@ -1,12 +1,11 @@
 package com.mycompany.tecnoparcial.TecnoEmail;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.concurrent.Callable;
 
 import com.mycompany.tecnoparcial.Negocio.*;
+import com.mycompany.tecnoparcial.utils.Comandos;
 
 public class MailTask implements Callable<MailSender> {
     String to, subject;
@@ -21,6 +20,7 @@ public class MailTask implements Callable<MailSender> {
     NPedido nPedido;
     NProducto nProducto;
     NUsuario nUsuario;
+    Help help;
 
     public MailTask(String to, String subject) {
         this.to = to;
@@ -35,6 +35,7 @@ public class MailTask implements Callable<MailSender> {
         this.nPedido = new NPedido();
         this.nProducto = new NProducto();
         this.nUsuario = new NUsuario();
+        this.help = new Help();
     }
 
     public String verificarComandos() throws IOException {
@@ -46,131 +47,147 @@ public class MailTask implements Callable<MailSender> {
         System.err.println(encabezado);
         switch (encabezado) {
 
-            // CU4: Gestionar Abogado
-            case "reg_agenda":
-                mensaje = nCategoria.crear(datos);
+            // CU1: Gestionar Usuarios
+            case Comandos.INS_USU:
+                mensaje = nUsuario.crear(datos);
                 break;
-            case "listar_agendas":
-                mensaje = nCategoria.TablaHTML("Lista Agenda");
-            case "mod_agenda":
-                mensaje = nCategoria.Editar(datos);
+            case Comandos.LIST_USU:
+                mensaje = nUsuario.TablaHTML("Lista Usuarios");
+            case Comandos.MOD_USU:
+                mensaje = nUsuario.editar(datos);
                 break;
-            case "eliminar_agenda":
-                mensaje = nCategoria.Eliminar(datos[0]);
-                break;
-            case "reserva_cita":
-                mensaje = nCompra.crear(datos);
-                break;
-            case "listar_citas":
-                mensaje = nCompra.TablaHTML("Lista Citas");
-                break;
-            case "mod_cita":
-                mensaje = nCompra.Editar(datos);
-                break;
-            case "eliminar_cita":
-                mensaje = nCompra.Eliminar(datos[0]);
-                break;
-            case "reg_consulta":
-
-                mensaje = nContacto.crear(datos);
-                break;
-            case "listar_consultas":
-                mensaje = nContacto.TablaHTML("Lista Consultas");
-                break;
-            case "mod_consulta":
-                mensaje = nContacto.Editar(datos);
-                break;
-            case "eliminar_consulta":
-                mensaje = nContacto.Eliminar(datos[0]);
+            case Comandos.ELI_USU:
+                mensaje = nUsuario.eliminar(datos[0]);
                 break;
 
-            case "reg_especialidad":
-                mensaje = nDetalleCompra.crear(datos);
+            //CU2: Gestionar Productos
+            case Comandos.INS_PROD:
+                mensaje = nProducto.crear(datos);
                 break;
-            case "listar_especialidades":
-                mensaje = nDetalleCompra.TablaHTML("Lista Especialidades");
+            case Comandos.LIST_PROD:
+                mensaje = nProducto.TablaHTML("Lista Productos");
                 break;
-            case "mod_especialidad":
-                mensaje = nDetalleCompra.Editar(datos);
+            case Comandos.MOD_PROD:
+                mensaje = nProducto.editar(datos);
                 break;
-            case "eliminar_especialidad":
-                mensaje = nDetalleCompra.Eliminar(datos[0]);
+            case Comandos.ELI_PROD:
+                mensaje = nProducto.eliminar(datos[0]);
                 break;
-            case "listar_odontologos":
-                mensaje = nDetalleMovimiento.TablaHTML("Lista Odontologos");
-                break;
-            case "mod_odontologo":
-                mensaje = nDetalleMovimiento.Editar(datos);
-                break;
-            case "eliminar_odontologo":
-                mensaje = nDetalleMovimiento.Eliminar(datos[0]);
-                break;
-            case "reg_paciente":
-                mensaje = this.nDetallePedido.crear(datos);
-                break;
-            case "listar_pacientes":
-                mensaje = nDetallePedido.TablaHTML("Lista Pacientes");
-                break;
-            case "mod_paciente":
-                mensaje = nDetallePedido.Editar(datos);
-                break;
-            case "eliminar_paciente":
-                mensaje = nDetallePedido.Eliminar(datos[0]);
-                break;
-            case "reg_receta":
-                mensaje = nMovimiento.crear(datos);
-                break;
-            case "listar_recetas":
-                mensaje = nMovimiento.TablaHTML("Lista Recetas");
-                break;
-            case "mod_receta":
-                mensaje = nMovimiento.Editar(datos);
-                break;
-            case "eliminar_receta":
-                mensaje = nMovimiento.Eliminar(datos[0]);
-                break;
-            case "reg_tratamiento":
+
+            //CU3: Gestionar Pedidos
+            case Comandos.INS_PED:
                 mensaje = nPedido.crear(datos);
                 break;
-            case "listar_tratamientos":
-                mensaje = nPedido.TablaHTML("Lista Tratamientos");
+            case Comandos.LIST_PED:
+                mensaje = nPedido.TablaHTML("Lista Pedidos");
                 break;
-            case "mod_tratamiento":
-                mensaje = nPedido.Editar(datos);
+            case Comandos.MOD_PED:
+                mensaje = nPedido.editar(datos);
                 break;
-            case "eliminar_tratamiento":
-                mensaje = nPedido.Eliminar(datos[0]);
+            case Comandos.ELI_PED:
+                mensaje = nPedido.eliminar(datos[0]);
                 break;
-            case "help":
-                mensaje=this.help();
+            case Comandos.INS_DETPED:
+                mensaje = nDetallePedido.crear(datos);
                 break;
-            default:
-                mensaje = "La petición '" + this.subject + "' es incorrecta.";
+            case Comandos.LIST_DETPED:
+                mensaje = nDetallePedido.TablaHTML("Lista Detalle Pedidos");
+                break;
+            case Comandos.MOD_DETPED:
+                mensaje = nDetallePedido.editar(datos);
+                break;
+            case Comandos.ELI_DETPED:
+                mensaje = nDetallePedido.eliminar(datos[0]);
                 break;
 
+            //CU4: Gestionar Compras
+            case Comandos.INS_COM:
+                mensaje = nCompra.crear(datos);
+                break;
+            case Comandos.LIST_COM:
+                mensaje = nCompra.TablaHTML("Lista Compras");
+                break;
+            case Comandos.MOD_COM:
+                mensaje = nCompra.editar(datos);
+                break;
+            case Comandos.ELI_COM:
+                mensaje = nCompra.eliminar(datos[0]);
+                break;
+            case Comandos.INS_DETCOM:
+                mensaje = nDetalleCompra.crear(datos);
+                break;
+            case Comandos.LIST_DETCOM:
+                mensaje = nDetalleCompra.TablaHTML("Lista Detalle Compra");
+                break;
+            case Comandos.MOD_DETCOM:
+                mensaje = nDetalleCompra.editar(datos);
+                break;
+            case Comandos.ELI_DETCOM:
+                mensaje = nDetalleCompra.eliminar(datos[0]);
+                break;
+
+            //CU5: Gestionar Movimientos
+            case Comandos.INS_MOV:
+                mensaje = nMovimiento.crear(datos);
+                break;
+            case Comandos.LIST_MOV:
+                mensaje = nMovimiento.TablaHTML("Lista Movimientos");
+                break;
+            case Comandos.MOD_MOV:
+                mensaje = nMovimiento.editar(datos);
+                break;
+            case Comandos.ELI_MOV:
+                mensaje = nMovimiento.eliminar(datos[0]);
+                break;
+            case Comandos.INS_DETMOV:
+                mensaje = nDetalleMovimiento.crear(datos);
+                break;
+            case Comandos.LIST_DETMOV:
+                mensaje = nDetalleMovimiento.TablaHTML("Lista Detalle Movimiento");
+                break;
+            case Comandos.MOD_DETMOV:
+                mensaje = nDetalleMovimiento.editar(datos);
+                break;
+            case Comandos.ELI_DETMOV:
+                mensaje = nDetalleMovimiento.eliminar(datos[0]);
+                break;
+            
+            //CU6: Gestionar Contactos
+            case Comandos.INS_CONT:
+                mensaje = nContacto.crear(datos);
+                break;
+            case Comandos.LIST_CONT:
+                mensaje = nContacto.TablaHTML("Lista Contactos");
+                break;
+            case Comandos.MOD_CONT:
+                mensaje = nContacto.editar(datos);
+                break;
+            case Comandos.ELI_CONT:
+                mensaje = nContacto.eliminar(datos[0]);
+                break;
+            
+            //CU7: Gestionar Categoria
+            case Comandos.INS_CAT:
+                mensaje = nCategoria.crear(datos);
+                break;
+            case Comandos.LIST_CAT:
+                mensaje = nCategoria.TablaHTML("Lista Categorias");
+                break;
+            case Comandos.MOD_CAT:
+                mensaje = nCategoria.editar(datos);
+                break;
+            case Comandos.ELI_CAT:
+                mensaje = nCategoria.eliminar(datos[0]);
+                break; 
+
+            //HELP
+            case Comandos.HELP:
+                mensaje = help.help();
+                break;
         }
         return mensaje;
     }
 
-
-    public static boolean isInteger(String s) {
-        try {
-            Integer.parseInt(s);
-        } catch (NumberFormatException e) {
-            return false;
-        } catch (NullPointerException e) {
-            return false;
-        }
-        // only got here if we didn't return false
-        return true;
-    }
-
-    /**
-     * separa el encabezado y el cuerpo de un comando enviado en una string
-     *
-     * @param encabezado
-     * @param cuerpo
-     */
     private LinkedList<Object> parseComando() {
         LinkedList<Object> parsedList = new LinkedList<>();
         String sub = this.subject.trim();
@@ -193,114 +210,10 @@ public class MailTask implements Callable<MailSender> {
 
     @Override
     public MailSender call() throws Exception {
-        // TODO: Verificar las consultas, salta error cuando se
-        // se llama a Negocio
 
         String resultadoVerificacion = this.verificarComandos();
         return new MailSender(this.to, "Resultado", resultadoVerificacion);
     }
 
-    public String help() {
-        //Arreglo que se usara para la tabla
-
-        String[][] miTabla
-                = {
-                    {"Caso de uso", "Método", "Comando"},
-                    // CU1 GESTIONAR PACIENTE
-                    {"CU1. Gestionar paciente", "Registrar Paciente", "reg_paciente[int ci;;String nombre;;Date fNac[AAAA-MM-DD];;String celular];"},
-                    {"CU1. Gestionar paciente", "Modificar Paciente", "mod_paciente[int id;;int ci;;String nombre;;Date fNac[AAAA-MM-DD];;String celular];"},
-                    {"CU1. Gestionar paciente", "EliminarPaciente", "eliminar_paciente[int id];"},
-                    {"CU1. Gestionar paciente", "Listar Paciente", "listar_pacientes[];"},
-                    //  CU2 GESTIONAR ODONTÓLOGO
-                    {"CU2. Gestionar odontologo", "Registrar Odontologo", "reg_odontologo[int CI;; String nombre;;Date fNac[AAAA-MM-DD];;String celular ;;String Genero (M o F) ;; String Correo ;; String Contrasena];"},
-                    {"CU2. Gestionar odontologo", "Modificar  Odontologo", "mod_odontologo[int id;; int CI;; String nombre ;; int celular  ;; String fecha de nacimiento(AAAA-MM-DD) ;; String genero];"},
-                    {"CU2. Gestionar odontologo", "Eliminar  Odontologo", "eliminar_odontologo[int id];"},
-                    {"CU2. Gestionar odontologo", "Listar  Odontologos", "listar_odontologos[];"},
-                    //  CU3 GESTIONAR RECETA
-                    {"CU3 Gestionar Receta", "Registrar Receta", "reg_receta[String titulo;;String descripcion;;Date fNac[AAAA-MM-DD];;int Consultaid];"},
-                    {"CU3 Gestionar Receta", "Registrar Receta", "mod_receta[int id;;String titulo;;String descripcion;;Date fNac[AAAA-MM-DD];;int Consultaid];"},
-                    {"CU3 Gestionar Receta", "Eliminar Receta", "eliminar_paciente[int id];"},
-                    {"CU3 Gestionar Receta", "Listar Receta", "listar_pacientes[];"},
-                    //  CU4 GESTIONAR CITA
-                    {"CU4 Gestionar Cita", "Registrar Cita", "reserva_cita[Time horaInicio[HH-MM];;Time horaFin[HH-MM];;int Pacienteid;; int Agendaid];"},
-                    {"CU4 Gestionar Cita", "Registrar Cita", "mod_cita[int id;;Time horaInicio[HH-MM];;Time horaFin[HH-MM];;int Pacienteid;; int Agendaid];"},
-                    {"CU4 Gestionar Cita", "Eliminar Cita", "eliminar_cita[int id];"},
-                    {"CU4 Gestionar Cita", "Listar Cita", "listar_citas[];"},
-                    //  CU5 GESTIONAR TRATAMIENTO
-                    {"CU5 Gestionar Tratamiento", "Registrar Tratamiento", "reg_tratamiento[String nombre;; int Especialidadid];"},
-                    {"CU5 Gestionar Tratamiento", "Registrar Tratamiento", "mod_tratamiento[int id;;String nombre;; int Especialidadid];"},
-                    {"CU5 Gestionar Tratamiento", "Eliminar Tratamiento", "eliminar_tratamiento[int id];"},
-                    {"CU5 Gestionar Tratamiento", "Listar Tratamiento", "listar_tratamientos[];"},
-                    // CU6 GESTIONAR ESPECIALIDAD
-                    {"CU6 Gestionar Especialidad", "Registrar Especialidad", "reg_especialidad[String nombre];"},
-                    {"CU6 Gestionar Especialidad", "Registrar Especialidad", "mod_especialidad[int id;;String nombre];"},
-                    {"CU6 Gestionar Especialidad", "Eliminar Especialidad", "eliminar_especialidad[int id];"},
-                    {"CU6 Gestionar Especialidad", "Listar Especialidad", "listar_especialidades[];"},
-                    // CU7 GESTIONAR AGENDA
-                    {"CU7 Gestionar Agenda", "Registrar Agenda", "reg_agenda[String nombre;; int Odontologid];"},
-                    {"CU7 Gestionar Agenda", "Registrar Agenda", "mod_agenda[int id;;String nombre;; int Odontologid];"},
-                    {"CU7 Gestionar Agenda", "Eliminar Agenda", "eliminar_agenda[int id];"},
-                    {"CU7 Gestionar Agenda", "Listar Agenda", "listar_agendas[];"},
-                    // CU8 GESTIONAR CONSULTA
-                    {"CU8 Gestionar Consulta", "Registrar Consulta", "reg_consulta[Date fechaEmision[AAAA-MM-DD];; int Citaid];"},
-                    {"CU8 Gestionar Consulta", "Registrar Consulta", "mod_consulta[int id;;Date fechaEmision[AAAA-MM-DD];; int Citaid];"},
-                    {"CU8 Gestionar Consulta", "Eliminar Consulta", "eliminar_consulta[int id];"},
-                    {"CU8 Gestionar Consulta", "Listar Consulta", "listar_consultas[];"},
-                    //  CU9 GENERAR REPORTE
-                    {"CU9 VER REPORTE", "Ver Odontologos", "reporteGeneros[];"},};
-
-        Date date = new Date(0);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        
-        
-        String help = "Content-Type: text/html; charset=\"UTF-8\"\n"
-                + "\n"
-                + "<h1>Lista de Comandos  </h1>"
-                + formatter.format(date)
-                // + "<h2>Por favor no utilizar tildes (´) o (ñ) en los datos de los comandos</h2>"
-                // + "<h2>(Se acepta documentos tipo: .txt, .docx, .pdf, .jpg, .rar, .xmls) DEPENDIENTO DEL TAMAÑO DEL ARCHIVO EL TIEMPO DE EJECUCION DEL PROGRAMA SERÁ MAYOR</h2>"
-                + "<table style=\"border-collapse: collapse; width: 100%; border: 2px solid black;\">\n"
-                + "\n";
-        //Ponemos el encabezado
-        help += generarEncabezado(miTabla);
-        help += generarCuerpoTabla(miTabla);
-        //Ponemos el contenido del documento
-        return help;
-    }
-
-    private String generarCuerpoTabla(String[][] miTabla) {
-        String cuerpo = "";
-        for (int i = 1; i < miTabla.length; i++) {
-            cuerpo += "  <tr>\n"
-                    + "\n";
-            for (int j = 0; j < miTabla[i].length; j++) {
-                cuerpo += "    <td style = \"text-align: left; padding: 8px; border: 2px solid black;\">"
-                        + miTabla[i][j] + "</td>\n"
-                        + "\n";
-            }
-            cuerpo += "  </tr>\n"
-                    + "\n";
-        }
-        return cuerpo;
-    }
-
-    /**
-     * Genera el encabezado a partir de la primera fila de la matriz de strings
-     * que se le envie
-     *
-     * @param miTabla
-     * @return
-     */
-    private String generarEncabezado(String[][] miTabla) {
-        String encabezado = "<tr>\n"
-                + "\n";
-        for (int i = 0; i < miTabla[0].length; i++) {
-            encabezado += "<th style = \"text-align: left; padding: 8px; background-color: #4CAF50; color: white; border: 2px solid black;\">"
-                    + miTabla[0][i] + "</th>\n"
-                    + "\n";
-        }
-        encabezado += "  </tr>\n"
-                + "\n";
-        return encabezado;
-    }
+    
 }

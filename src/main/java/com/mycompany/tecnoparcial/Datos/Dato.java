@@ -1,9 +1,7 @@
 package com.mycompany.tecnoparcial.Datos;
 
-
 import java.util.regex.*;
 import java.sql.ResultSet;
-
 
 public abstract class Dato {
 
@@ -15,7 +13,7 @@ public abstract class Dato {
     public Dato() {
         this.dbc = new Conexion();
     }
-    
+
     private boolean isNumber(Object arg) {
         String regex = "^(\\d+(\\.\\d+)?)$";
         return Pattern.matches(regex, String.valueOf(arg));
@@ -26,11 +24,11 @@ public abstract class Dato {
         return new Tabla((ResultSet) dbc.query(sql));
     }
 
-    public String[]  getTypesList(){
+    public String[] getTypesList() {
         return TYPES;
     }
-    
-    public String[]  getColums(){
+
+    public String[] getColums() {
         return COLUMNS;
     }
 
@@ -39,30 +37,28 @@ public abstract class Dato {
         return new Tabla((ResultSet) dbc.query(sql));
     }
 
-    public Tabla buscar(String[] columnas,Object[] parametros) {
-       
+    public Tabla buscar(String[] columnas, Object[] parametros) {
+
         String VALUES = "";
-         for (int i = 0; i < COLUMNS.length; i++) {
+        for (int i = 0; i < COLUMNS.length; i++) {
             if (!isNumber(parametros[i])) {
                 parametros[i] = "'" + parametros[i] + "'";
             }
 
             if (i == COLUMNS.length - 1) {
-                VALUES += columnas[i]+"=%s";
-                
+                VALUES += columnas[i] + "=%s";
+
             } else {
-                VALUES += columnas[i]+"=%s and ";
-               
+                VALUES += columnas[i] + "=%s and ";
+
             }
         }
-         
-       String queryString= "SELECT * FROM " + TABLE + " WHERE "+VALUES;
-         String sql = String.format(
-               queryString,
-                parametros
-        );
 
-       
+        String queryString = "SELECT * FROM " + TABLE + " WHERE " + VALUES;
+        String sql = String.format(
+                queryString,
+                parametros);
+
         return new Tabla((ResultSet) dbc.query(sql));
     }
 
@@ -86,40 +82,38 @@ public abstract class Dato {
 
         String sql = String.format(
                 "INSERT INTO " + TABLE + "(" + COLS + ") VALUES (" + VALUES + ")",
-                args
-        );
+                args);
 
         return (boolean) dbc.query(sql);
     }
 
     public boolean editar(Object args[]) {
         String VALUES = "";
-        for (int i = 0; i < COLUMNS.length ; i++) {
+        for (int i = 0; i < COLUMNS.length; i++) {
             if (!isNumber(args[i])) {
                 args[i] = "'" + args[i] + "'";
             }
-         
-            VALUES+=this.COLUMNS[i];
+
+            VALUES += this.COLUMNS[i];
             VALUES += (i == COLUMNS.length - 1) ? "= %s " : " = %s, ";
         }
 
         String sql = String.format(
                 "UPDATE " + TABLE + " SET " + VALUES + "WHERE id = %s",
-                args
-        );
+                args);
 
         return (boolean) dbc.query(sql);
     }
-        
+
     public boolean eliminar(String id) {
         String sql = String.format("DELETE FROM " + TABLE + " WHERE id = %s", id);
         return (boolean) dbc.query(sql);
     }
+
     public static class Datatypes {
-        public static final String STRING   ="string";
-        public static final String INTEGER   ="integer";
-        public static final String DATE   ="date";
-        public static final String FLOAT   ="float";
-        public static final String TIME   ="time";
+        public static final String STRING = "string";
+        public static final String INTEGER = "integer";
+        public static final String DATE = "date";
+        public static final String FLOAT = "float";
     }
 }

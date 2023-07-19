@@ -1,9 +1,9 @@
 package com.mycompany.tecnoparcial.utils;
 
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+// import java.sql.Time;
+// import java.text.DateFormat;
+// import java.text.ParseException;
+// import java.text.SimpleDateFormat;
 
 public class ParseUtils {
     public static String styles =
@@ -153,15 +153,6 @@ public class ParseUtils {
         }
     }
 
-    public static boolean tryParseTime(String value) {
-        try {
-            Time.valueOf(value);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     public static boolean tryParseBoolean(String value) {
         try {
             Boolean.parseBoolean(value);
@@ -171,15 +162,28 @@ public class ParseUtils {
         }
     }
 
-    public static boolean tryParseDate(String value) throws ParseException {
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            dateFormat.parse(value);
-            return true;
-        } catch (NumberFormatException e) {
+    public static boolean tryParseString(String value){
+        if (value.length() == 0) {
             return false;
         }
+        return true;
+    }
+    // public static boolean tryParseDate(String value) throws ParseException {
+    //     try {
+    //         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    //         dateFormat.parse(value);
+    //         return true;
+    //     } catch (NumberFormatException e) {
+    //         return false;
+    //     }
 
+    // }
+
+    public static boolean tryParseDate(String value) {
+        if (value.length() < 10 || value.length() > 10) {
+            return false;
+        }
+        return true;
     }
 
     public static boolean tryParseFloat(String value) {
