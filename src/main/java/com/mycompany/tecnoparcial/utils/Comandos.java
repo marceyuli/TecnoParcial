@@ -46,7 +46,7 @@ public class Comandos {
     public static final String HELP = "HELP";
 
     public static final String[][] listaComandos = {
-        {"Caso de uso", "Método", "Comando"},
+        {"Caso de uso", "Metodo", "Comando"},
         //CU1 Gestionar Usuarios
         {"CU1 Gestionar Usuario", "Registrar Usuario", "INS_USU[String nombre; String apellidoPaterno; String apellidoMaterno; String direccion; String email; String cargo; String contrasena]"},
         {"CU1 Gestionar Usuario", "Listar Usuario", "LIST_USU[]"},

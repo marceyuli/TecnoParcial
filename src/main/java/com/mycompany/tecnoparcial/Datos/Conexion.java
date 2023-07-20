@@ -6,10 +6,11 @@ import java.util.logging.Logger;
 
 public class Conexion {
 
-    private final String base = "tecno";
-    private final String user = "tecnouser";
-    private final String password = "tecnopass";
-    private final String url = "jdbc:postgresql://localhost:5432/" + base;
+    private final String base = "db_grupo01sc";
+    private final String user = "grupo01sc";
+    private final String password = "grup001grup001";
+    private final String host = "tecnoweb.org.bo";
+    private final String url = "jdbc:postgresql://" + host + ":5432/" + base;
     private final String driver = "org.postgresql.Driver";
     private Connection con = null;
 

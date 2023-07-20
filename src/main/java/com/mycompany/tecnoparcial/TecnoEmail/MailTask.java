@@ -184,6 +184,10 @@ public class MailTask implements Callable<MailSender> {
             case Comandos.HELP:
                 mensaje = help.help();
                 break;
+
+            default:
+                mensaje = "Comando no renocido, intenta escribir HELP[]";
+                break;
         }
         return mensaje;
     }
@@ -196,7 +200,7 @@ public class MailTask implements Callable<MailSender> {
         String cuerpo[] = partesSubject[1].split("\\]");
         String datos[] = null;
         if (cuerpo.length != 0) {
-            datos = cuerpo[0].split("\\;;");
+            datos = cuerpo[0].split("\\;");
             for (int i = 0; i < datos.length; i++) {
                 datos[i] = datos[i].trim();
             }

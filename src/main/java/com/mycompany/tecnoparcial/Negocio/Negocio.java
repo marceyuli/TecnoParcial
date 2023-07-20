@@ -127,7 +127,7 @@ public abstract class Negocio {
             this.html.th(class_("c-table__col-label")).write(nombre)._th();
         }
         this.html._tr()._thead();
-        this.html.tbody();
+        this.html.tbody(class_("c-table__body"));
         for (int i = 0; i < data.getFila(); i++) {
             this.html.tr();
             for (int j = 0; j < data.getColumna(); j++) {

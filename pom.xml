@@ -33,5 +33,12 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/librerias/commons-lang3-3.1.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.3</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/librerias/jfreechart-1.5.3.jar</systemPath>
+        </dependency>
     </dependencies>
 </project>
