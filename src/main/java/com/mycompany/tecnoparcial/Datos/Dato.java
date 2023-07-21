@@ -32,35 +32,6 @@ public abstract class Dato {
         return COLUMNS;
     }
 
-    public Tabla buscarPorID(String id) {
-        String sql = "SELECT * FROM " + TABLE + " WHERE id = " + id;
-        return new Tabla((ResultSet) dbc.query(sql));
-    }
-
-    public Tabla buscar(String[] columnas, Object[] parametros) {
-
-        String VALUES = "";
-        for (int i = 0; i < COLUMNS.length; i++) {
-            if (!isNumber(parametros[i])) {
-                parametros[i] = "'" + parametros[i] + "'";
-            }
-
-            if (i == COLUMNS.length - 1) {
-                VALUES += columnas[i] + "=%s";
-
-            } else {
-                VALUES += columnas[i] + "=%s and ";
-
-            }
-        }
-
-        String queryString = "SELECT * FROM " + TABLE + " WHERE " + VALUES;
-        String sql = String.format(
-                queryString,
-                parametros);
-
-        return new Tabla((ResultSet) dbc.query(sql));
-    }
 
     public boolean crear(Object args[]) {
         String COLS = "";

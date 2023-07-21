@@ -20,6 +20,11 @@ public class DDetallePedido extends Dato {
         };
     }
 
+    public Tabla listar(String id){
+        String sql = "SELECT * FROM " + TABLE + " WHERE pedidoid = '" + id + "'";
+        return new Tabla((ResultSet) dbc.query(sql));
+    }
+
     public Tabla obtenerProductosPopulares() {
         String sql = "SELECT p.nombre AS nombre, SUM(d.cantidad) AS total " +
                 "FROM detallePedido d " +

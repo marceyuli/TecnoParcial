@@ -17,6 +17,15 @@ public class NDetallePedido extends Negocio {
         super(new DDetallePedido());
     }
 
+    public String listar(String id) throws IOException{
+        if (id.isEmpty()) {
+            return "Debe introducir un id del pedido";
+        }
+        DDetallePedido dDetallePedido = (DDetallePedido) this.dato;
+        Tabla datos = dDetallePedido.listar(id);
+        return listarDinamico("Detalle de Pedido", datos);
+    }
+
     public String obtenerProductosPopulares() throws IOException {
         DDetallePedido dDetallePedido = (DDetallePedido) this.dato;
         Tabla datos = dDetallePedido.obtenerProductosPopulares();

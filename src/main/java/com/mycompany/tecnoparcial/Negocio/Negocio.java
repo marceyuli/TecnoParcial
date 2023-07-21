@@ -67,42 +67,6 @@ public abstract class Negocio {
         return "<h1>Ups! Algo Pasó! :(</h1>";
     }
 
-    public String buscarPorID(String id) {
-        Tabla data = this.dato.buscarPorID(id);
-        try {
-            if (data.getFila() != 0) {
-                return listar("Consulta Exitosa");
-            } else {
-                return "<h1>Registro No encontrado</h1>";
-            }
-        } catch (IOException e) {
-            System.err.println(e);
-        }
-        return "<h1>Ups! Algo Pasó! :(</h1>";
-    }
-
-    public String buscar(String columnas[], Object parametros[]) {
-
-        Tabla data = this.dato.buscar(columnas, parametros);
-        try {
-            if (data.getFila() != 0) {
-                return listar("Consulta Exitosa");
-            } else {
-                return "<h1>Registro No encontrado</h1>";
-            }
-        } catch (IOException e) {
-            System.err.println(e);
-        }
-        return "<h1>Ups! Algo Pasó! :(</h1>";
-    }
-
-    public String getID(String columnas[], Object parametros[]) {
-
-        Tabla data = this.dato.buscar(columnas, parametros);
-        String id = data.getData(0, 0);
-        return id;
-    }
-
     public String eliminar(String id) {
         try {
             if (this.dato.eliminar(id)) {

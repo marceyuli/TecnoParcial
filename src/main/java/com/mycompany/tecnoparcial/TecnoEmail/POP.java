@@ -78,26 +78,6 @@ public class POP {
         return getData(this.input);
     }
 
-    public String getStat() {
-        String line = "";
-        try {
-            this.output.writeBytes("STAT" + JMP);
-            line = this.input.readLine();
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        if (line.compareTo("") != 0) {
-            line = line.substring(4);
-            int i = 1;
-            while (line.charAt(i) != ' ') {
-                i++;
-            }
-            line = line.substring(0, i);
-        }
-        return line;
-    }
-
     public String getSubject(String mail) {
         String lines[] = mail.split("\\n");
         String line = "";
@@ -165,15 +145,5 @@ public class POP {
         return Data;
     }
 
-    public void nextEmail() {
-        if (currentEmail + 1 <= emails) {
-            currentEmail++;
-        }
-    }
-
-    public void previousEmail() {
-        if (currentEmail - 1 >= 1) {
-            currentEmail--;
-        }
-    }
+   
 }

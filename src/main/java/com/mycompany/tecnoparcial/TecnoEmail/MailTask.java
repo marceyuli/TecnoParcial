@@ -91,7 +91,7 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nDetallePedido.crear(datos);
                 break;
             case Comandos.LIST_DETPED:
-                mensaje = nDetallePedido.listar("Lista Detalle Pedidos");
+                mensaje = nDetallePedido.listar(datos[0]);
                 break;
             case Comandos.MOD_DETPED:
                 mensaje = nDetallePedido.editar(datos);
@@ -117,7 +117,7 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nDetalleCompra.crear(datos);
                 break;
             case Comandos.LIST_DETCOM:
-                mensaje = nDetalleCompra.listar("Lista Detalle Compra");
+                mensaje = nDetalleCompra.listar(datos[0]);
                 break;
             case Comandos.MOD_DETCOM:
                 mensaje = nDetalleCompra.editar(datos);
@@ -143,7 +143,7 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nDetalleMovimiento.crear(datos);
                 break;
             case Comandos.LIST_DETMOV:
-                mensaje = nDetalleMovimiento.listar("Lista Detalle Movimiento");
+                mensaje = nDetalleMovimiento.listar(datos[0]);
                 break;
             case Comandos.MOD_DETMOV:
                 mensaje = nDetalleMovimiento.editar(datos);

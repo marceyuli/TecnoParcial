@@ -1,5 +1,7 @@
 package com.mycompany.tecnoparcial.Datos;
 
+import java.sql.ResultSet;
+
 public class DDetalleCompra extends Dato {
     public DDetalleCompra() {
         super();
@@ -16,5 +18,10 @@ public class DDetalleCompra extends Dato {
                 Datatypes.INTEGER,
                 Datatypes.FLOAT,
         };
+    }
+
+    public Tabla listar(String id){
+        String sql = "SELECT * FROM " + TABLE + " WHERE compraid = '" + id + "'";
+        return new Tabla((ResultSet) dbc.query(sql));
     }
 }

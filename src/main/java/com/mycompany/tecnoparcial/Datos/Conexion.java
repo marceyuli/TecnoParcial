@@ -18,22 +18,6 @@ public class Conexion {
 
     }
 
-    public Connection getConexion() {
-        if (con != null) {
-            return con;
-        }
-        try {
-            Class.forName(this.driver);
-            con = (Connection) DriverManager.getConnection(this.url, this.user, this.password);
-            System.out.println("Conetaco correctamente");
-        } catch (SQLException e) {
-            System.err.println(e);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return con;
-    }
-
     public void connect() {
         if (con != null) {
             return;

@@ -1,5 +1,7 @@
 package com.mycompany.tecnoparcial.Datos;
 
+import java.sql.ResultSet;
+
 public class DDetalleMovimiento extends Dato {
     public DDetalleMovimiento() {
         super();
@@ -14,5 +16,10 @@ public class DDetalleMovimiento extends Dato {
                 Datatypes.INTEGER,
                 Datatypes.INTEGER,
         };
+    }
+
+    public Tabla listar(String id){
+        String sql = "SELECT * FROM " + TABLE + " WHERE movimientoid = '" + id + "'";
+        return new Tabla((ResultSet) dbc.query(sql));
     }
 }
