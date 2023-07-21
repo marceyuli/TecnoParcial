@@ -42,6 +42,10 @@ public class Comandos {
     public static final String MOD_CAT = "MOD_CAT";
     public static final String ELI_CAT = "ELI_CAT";
 
+    public static final String LIST_PRODBYCAT = "LIST_PRODBYCAT";
+    public static final String LIST_PRODPOPULAR = "LIST_PRODPOPULAR";
+    public static final String LIST_PRODREAB = "LIST_PRODREAB";
+
 
     public static final String HELP = "HELP";
 
@@ -90,9 +94,9 @@ public class Comandos {
         {"CU5 Gestionar Movimiento", "Eliminar Detalle de Movimiento", "ELI_DETMOV[int id]"},
 
         //CU6 Gestionar Contactos
-        {"CU6 Gestionar Contacto", "Registrar Contacto", "INS_CONT[String nombre; String apellidoPaterno; String apellidoMaterno; String direccion; String telefono]"},
+        {"CU6 Gestionar Contacto", "Registrar Contacto", "INS_CONT[String tipo; String nombre; String apellidoPaterno; String apellidoMaterno; String direccion; String telefono]"},
         {"CU6 Gestionar Contacto", "Listar Contacto", "LIST_CONT[]"},
-        {"CU6 Gestionar Contacto", "Modificar Contacto", "MOD_CONT[int id; String nombre; String apellidoPaterno; String apellidoMaterno; String direccion; String telefono]"},
+        {"CU6 Gestionar Contacto", "Modificar Contacto", "MOD_CONT[int id; String tipo; String nombre; String apellidoPaterno; String apellidoMaterno; String direccion; String telefono]"},
         {"CU6 Gestionar Contacto", "Eliminar Contacto", "ELI_CONT[int id]"},
 
         //CU7 Gestionar Categoria
@@ -100,6 +104,11 @@ public class Comandos {
         {"CU7 Gestionar Categoria", "Listar Categoria", "LIST_CAT[]"},
         {"CU7 Gestionar Categoria", "Modificar Categoria", "MOD_CAT[int id; String nombre; String descripcion]"},
         {"CU7 Gestionar Categoria", "Eliminar Categoria", "ELI_CAT[int id]"},
+
+        //CU8 Gestionar Reportes
+        {"CU8 Gestionar Reportes", "Listar Productos por categoria", "LIST_PRODBYCAT[String categoria]"},
+        {"CU8 Gestionar Reportes", "Listar Productos mas vendidos", "LIST_PRODPOPULAR[]"},
+        {"CU8 Gestionar Reportes", "Listar Productos por categoria", "LIST_PRODREAB[]"},
     };
     
 }

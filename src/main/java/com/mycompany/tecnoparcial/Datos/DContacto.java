@@ -18,6 +18,7 @@ public class DContacto extends Dato {
                 Datatypes.STRING,
                 Datatypes.STRING,
                 Datatypes.STRING,
+                Datatypes.STRING,
         };
     }
 }

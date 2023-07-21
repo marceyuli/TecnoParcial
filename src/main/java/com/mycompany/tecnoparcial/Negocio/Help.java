@@ -1,6 +1,6 @@
 package com.mycompany.tecnoparcial.Negocio;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 
 import com.mycompany.tecnoparcial.utils.Comandos;
@@ -14,15 +14,13 @@ public class Help {
 
         String[][] miTabla = Comandos.listaComandos;
 
-        Date date = new Date(0);
+        Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
         String help = "Content-Type: text/html; charset=\"UTF-8\"\n"
                 + "\n"
                 + "<h1>Lista de Comandos  </h1>"
                 + formatter.format(date)
-                // + "<h2>Por favor no utilizar tildes (´) o (ñ) en los datos de los
-                // comandos</h2>"
                 + "<table style=\"border-collapse: collapse; width: 100%; border: 2px solid black;\">\n"
                 + "\n";
         // Ponemos el encabezado

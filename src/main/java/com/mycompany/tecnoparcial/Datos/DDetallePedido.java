@@ -1,5 +1,7 @@
 package com.mycompany.tecnoparcial.Datos;
 
+import java.sql.ResultSet;
+
 public class DDetallePedido extends Dato {
     public DDetallePedido() {
         super();
@@ -16,5 +18,13 @@ public class DDetallePedido extends Dato {
                 Datatypes.INTEGER,
                 Datatypes.FLOAT,
         };
+    }
+
+    public Tabla obtenerProductosPopulares() {
+        String sql = "SELECT p.nombre AS nombre, SUM(d.cantidad) AS total " +
+                "FROM detallePedido d " +
+                "JOIN producto p ON d.productoid = p.id " +
+                "GROUP BY d.productoid, p.nombre";
+        return new Tabla((ResultSet) dbc.query(sql));
     }
 }

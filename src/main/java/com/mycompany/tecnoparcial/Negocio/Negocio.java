@@ -32,7 +32,7 @@ public abstract class Negocio {
             }
             Object[] datosParseados = this.parsearDatos(args);
             if (dato.crear(datosParseados)) {
-                return TablaHTML("Registro Completado !");
+                return listar("Registro Completado !");
             }
 
         } catch (IOException e) {
@@ -59,7 +59,7 @@ public abstract class Negocio {
                 datosTotales[i] = datoParseado;
             }
             if (dato.editar(datosTotales)) {
-                return TablaHTML("Registro Completado !");
+                return listar("Registro Completado !");
             }
         } catch (IOException e) {
             System.err.println(e);
@@ -71,7 +71,7 @@ public abstract class Negocio {
         Tabla data = this.dato.buscarPorID(id);
         try {
             if (data.getFila() != 0) {
-                return TablaHTML("Consulta Exitósa");
+                return listar("Consulta Exitosa");
             } else {
                 return "<h1>Registro No encontrado</h1>";
             }
@@ -86,7 +86,7 @@ public abstract class Negocio {
         Tabla data = this.dato.buscar(columnas, parametros);
         try {
             if (data.getFila() != 0) {
-                return TablaHTML("Consulta Exitósa");
+                return listar("Consulta Exitosa");
             } else {
                 return "<h1>Registro No encontrado</h1>";
             }
@@ -106,7 +106,7 @@ public abstract class Negocio {
     public String eliminar(String id) {
         try {
             if (this.dato.eliminar(id)) {
-                return TablaHTML("Consulta Exitósa");
+                return listar("Consulta Exitosa");
             }
         } catch (IOException e) {
             System.err.println(e);
@@ -114,8 +114,17 @@ public abstract class Negocio {
         return "<h1>Ups! Algo Pasó</h1>";
     }
 
-    public String TablaHTML(String title) throws IOException {
-        Tabla data = this.dato.listar();
+    public String listar(String title) throws IOException {
+        Tabla datos = this.dato.listar();
+        return TablaHTML(title, datos);
+    }
+
+    public String listarDinamico(String title, Tabla datos) throws IOException {
+        return TablaHTML(title, datos);
+    }
+
+    public String TablaHTML(String title, Tabla datos) throws IOException {
+        Tabla data = datos;
 
         this.html.style().write(styles)._style();
         this.html.html().title().write(title)._title()._html();
@@ -211,7 +220,7 @@ public abstract class Negocio {
         return ParseUtils.tryParseString(dato);
     }
 
-    private Object[] parsearDatos(String[] args) {
+    public Object[] parsearDatos(String[] args) {
 
         String[] tipos = dato.getTypesList();
         Object[] datosParseados = new Object[tipos.length];

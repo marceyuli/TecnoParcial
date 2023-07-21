@@ -52,7 +52,7 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nUsuario.crear(datos);
                 break;
             case Comandos.LIST_USU:
-                mensaje = nUsuario.TablaHTML("Lista Usuarios");
+                mensaje = nUsuario.listar("Lista Usuarios");
             case Comandos.MOD_USU:
                 mensaje = nUsuario.editar(datos);
                 break;
@@ -65,7 +65,7 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nProducto.crear(datos);
                 break;
             case Comandos.LIST_PROD:
-                mensaje = nProducto.TablaHTML("Lista Productos");
+                mensaje = nProducto.listar("Lista Productos");
                 break;
             case Comandos.MOD_PROD:
                 mensaje = nProducto.editar(datos);
@@ -79,7 +79,7 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nPedido.crear(datos);
                 break;
             case Comandos.LIST_PED:
-                mensaje = nPedido.TablaHTML("Lista Pedidos");
+                mensaje = nPedido.listar("Lista Pedidos");
                 break;
             case Comandos.MOD_PED:
                 mensaje = nPedido.editar(datos);
@@ -91,7 +91,7 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nDetallePedido.crear(datos);
                 break;
             case Comandos.LIST_DETPED:
-                mensaje = nDetallePedido.TablaHTML("Lista Detalle Pedidos");
+                mensaje = nDetallePedido.listar("Lista Detalle Pedidos");
                 break;
             case Comandos.MOD_DETPED:
                 mensaje = nDetallePedido.editar(datos);
@@ -105,7 +105,7 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nCompra.crear(datos);
                 break;
             case Comandos.LIST_COM:
-                mensaje = nCompra.TablaHTML("Lista Compras");
+                mensaje = nCompra.listar("Lista Compras");
                 break;
             case Comandos.MOD_COM:
                 mensaje = nCompra.editar(datos);
@@ -117,7 +117,7 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nDetalleCompra.crear(datos);
                 break;
             case Comandos.LIST_DETCOM:
-                mensaje = nDetalleCompra.TablaHTML("Lista Detalle Compra");
+                mensaje = nDetalleCompra.listar("Lista Detalle Compra");
                 break;
             case Comandos.MOD_DETCOM:
                 mensaje = nDetalleCompra.editar(datos);
@@ -131,7 +131,7 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nMovimiento.crear(datos);
                 break;
             case Comandos.LIST_MOV:
-                mensaje = nMovimiento.TablaHTML("Lista Movimientos");
+                mensaje = nMovimiento.listar("Lista Movimientos");
                 break;
             case Comandos.MOD_MOV:
                 mensaje = nMovimiento.editar(datos);
@@ -143,7 +143,7 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nDetalleMovimiento.crear(datos);
                 break;
             case Comandos.LIST_DETMOV:
-                mensaje = nDetalleMovimiento.TablaHTML("Lista Detalle Movimiento");
+                mensaje = nDetalleMovimiento.listar("Lista Detalle Movimiento");
                 break;
             case Comandos.MOD_DETMOV:
                 mensaje = nDetalleMovimiento.editar(datos);
@@ -157,7 +157,7 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nContacto.crear(datos);
                 break;
             case Comandos.LIST_CONT:
-                mensaje = nContacto.TablaHTML("Lista Contactos");
+                mensaje = nContacto.listar("Lista Contactos");
                 break;
             case Comandos.MOD_CONT:
                 mensaje = nContacto.editar(datos);
@@ -171,7 +171,7 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nCategoria.crear(datos);
                 break;
             case Comandos.LIST_CAT:
-                mensaje = nCategoria.TablaHTML("Lista Categorias");
+                mensaje = nCategoria.listar("Lista Categorias");
                 break;
             case Comandos.MOD_CAT:
                 mensaje = nCategoria.editar(datos);
@@ -179,6 +179,18 @@ public class MailTask implements Callable<MailSender> {
             case Comandos.ELI_CAT:
                 mensaje = nCategoria.eliminar(datos[0]);
                 break; 
+
+            //CU8: Gestionar Reportes
+            case Comandos.LIST_PRODBYCAT:
+                String categoriaid = nCategoria.obtenerIdCategoria(datos[0]);
+                mensaje = nProducto.obtenerProductosPorCategoria(categoriaid);
+                break;
+            case Comandos.LIST_PRODPOPULAR:
+                mensaje = nDetallePedido.obtenerProductosPopulares();
+                break;
+            case Comandos.LIST_PRODREAB:
+                mensaje = nProducto.obtenerProductosReabastecimiento();
+                break;
 
             //HELP
             case Comandos.HELP:
@@ -195,21 +207,28 @@ public class MailTask implements Callable<MailSender> {
     private LinkedList<Object> parseComando() {
         LinkedList<Object> parsedList = new LinkedList<>();
         String sub = this.subject.trim();
-        String[] partesSubject = sub.split("\\[");
-        String encabezado = partesSubject[0];
-        String cuerpo[] = partesSubject[1].split("\\]");
-        String datos[] = null;
-        if (cuerpo.length != 0) {
-            datos = cuerpo[0].split("\\;");
-            for (int i = 0; i < datos.length; i++) {
-                datos[i] = datos[i].trim();
+        try {
+            String[] partesSubject = sub.split("\\[");
+            String encabezado = partesSubject[0];
+            String cuerpo[] = partesSubject[1].split("\\]");
+            String datos[] = null;
+            if (cuerpo.length != 0) {
+                datos = cuerpo[0].split("\\;");
+                for (int i = 0; i < datos.length; i++) {
+                    datos[i] = datos[i].trim();
+                }
             }
+            parsedList.push(encabezado);
+            parsedList.push(datos);
+            System.err.println(encabezado);
+            System.err.println(datos);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+            parsedList.push(sub);
+            parsedList.push(null);
         }
-        parsedList.push(encabezado);
-        parsedList.push(datos);
-        System.err.println(encabezado);
-        System.err.println(datos);
-        return parsedList;
+        return parsedList; 
     }
 
     @Override

@@ -4,8 +4,9 @@
 
 package com.mycompany.tecnoparcial;
 
-import com.mycompany.tecnoparcial.Datos.DUsuario;
-import com.mycompany.tecnoparcial.Datos.Dato;
+import java.io.IOException;
+
+import com.mycompany.tecnoparcial.TecnoEmail.MailService;
 
 /**
  *
@@ -13,9 +14,22 @@ import com.mycompany.tecnoparcial.Datos.Dato;
  */
 public class TecnoParcial {
 
-    public static void main(String[] args) {
-        System.out.println("holaaa");
-        Dato usuario = new DUsuario();
-        // usuario.crear(["asd"]);
+    public static void main(String[] args) throws IOException, InterruptedException {
+
+        MailService mails = new MailService();
+        int emails = mails.getEmails();
+        while (true) {
+            int emails_query = mails.getEmails();
+
+            if (emails_query > emails) {
+                mails.sendMail(emails + 1, emails_query);
+                emails = emails_query;
+            }
+
+            System.out.println("Esperando a leer nuevos emails...");
+            Thread.sleep(10000);
+
+        }
+
     }
 }

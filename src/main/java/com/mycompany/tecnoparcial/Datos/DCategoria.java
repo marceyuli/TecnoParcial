@@ -1,5 +1,7 @@
 package com.mycompany.tecnoparcial.Datos;
 
+import java.sql.ResultSet;
+
 public class DCategoria extends Dato {
     public DCategoria() {
         super();
@@ -13,4 +15,10 @@ public class DCategoria extends Dato {
                 Datatypes.STRING,
         };
     }
+
+    public Tabla obtenerIdCategoria(String nombreCategoria){
+        String sql = "SELECT * FROM " + TABLE + " WHERE nombre = '" + nombreCategoria + "'";
+        return new Tabla((ResultSet) dbc.query(sql));
+    }
+
 }
