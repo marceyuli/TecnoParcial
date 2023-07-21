@@ -18,7 +18,7 @@ public class NDetallePedido extends Negocio {
     }
 
     public String listar(String id) throws IOException{
-        if (id.isEmpty()) {
+        if (!validarInteger(id)) {
             return "Debe introducir un id del pedido";
         }
         DDetallePedido dDetallePedido = (DDetallePedido) this.dato;

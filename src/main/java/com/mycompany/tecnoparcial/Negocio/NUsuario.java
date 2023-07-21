@@ -3,6 +3,7 @@ package com.mycompany.tecnoparcial.Negocio;
 import java.io.IOException;
 
 import com.mycompany.tecnoparcial.Datos.DUsuario;
+import com.mycompany.tecnoparcial.Datos.Tabla;
 
 public class NUsuario extends Negocio {
     public NUsuario() {
@@ -29,5 +30,19 @@ public class NUsuario extends Negocio {
 
         }
         return "<h1>Ups! Algo Pasó! :(</h1>";
+    }
+
+    public boolean existeAdministrador(String email){
+        DUsuario dUsuario = (DUsuario) this.dato;
+        Tabla tabla = dUsuario.existeAdministrador(email);
+        int cantidad = Integer.parseInt(tabla.getData(0, 0));
+        return cantidad > 0;
+    }
+
+    public boolean existeEmpleado(String email){
+        DUsuario dUsuario = (DUsuario) this.dato;
+        Tabla tabla = dUsuario.existeEmpleado(email);
+        int cantidad = Integer.parseInt(tabla.getData(0, 0));
+        return cantidad > 0;
     }
 }

@@ -19,9 +19,6 @@ public class Conexion {
     }
 
     public void connect() {
-        if (con != null) {
-            return;
-        }
         try {
             Class.forName(this.driver);
             con = DriverManager.getConnection(url, user, password);
@@ -33,12 +30,8 @@ public class Conexion {
     }
 
     public void close() {
-        if (con == null) {
-            return;
-        }
         try {
             con.close();
-            con = null;
             System.out.println("\033[32;1;2mCONNECTION CLOSED!!\033[0m");
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);

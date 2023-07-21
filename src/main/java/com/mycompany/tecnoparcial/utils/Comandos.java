@@ -69,7 +69,7 @@ public class Comandos {
         {"CU3 Gestionar Pedido", "Modificar Pedido", "MOD_PED[int id; int contactoid; Date fecha[AAAA-MM-DD]; String estado]"},
         {"CU3 Gestionar Pedido", "Eliminar Pedido", "ELI_PED[int id]"},
         {"CU3 Gestionar Pedido", "Registrar Detalle de Pedido", "INS_DETPED[int pedidoid; int productoid; int cantidad; double precio]"},
-        {"CU3 Gestionar Pedido", "Listar Detalle de Pedido", "LIST_DETPED[]"},
+        {"CU3 Gestionar Pedido", "Listar Detalle de Pedido", "LIST_DETPED[int id]"},
         {"CU3 Gestionar Pedido", "Modificar Detalle de Pedido", "MOD_DETPED[int id; int pedidoid; int productoid; int cantidad; double precio]"},
         {"CU3 Gestionar Pedido", "Eliminar Detalle de Pedido", "ELI_DETPED[int id]"},
 
@@ -79,7 +79,7 @@ public class Comandos {
         {"CU4 Gestionar Compra", "Modificar Compra", "MOD_COM[int id; int contactoid; Date fecha[AAAA-MM-DD]]"},
         {"CU4 Gestionar Compra", "Eliminar Compra", "ELI_COM[int id]"},
         {"CU4 Gestionar Compra", "Registrar Detalle de Compra", "INS_DETCOM[int compraid; int productoid; int cantidad; double precio]"},
-        {"CU4 Gestionar Compra", "Listar Detalle de Compra", "LIST_DETCOM[]"},
+        {"CU4 Gestionar Compra", "Listar Detalle de Compra", "LIST_DETCOM[int id]"},
         {"CU4 Gestionar Compra", "Modificar Detalle de Compra", "MOD_DETCOM[int id; int compraid; int productoid; int cantidad; double precio]"},
         {"CU4 Gestionar Compra", "Eliminar Detalle de Compra", "ELI_DETCOM[int id]"},
 
@@ -89,7 +89,7 @@ public class Comandos {
         {"CU5 Gestionar Movimiento", "Modificar Movimiento", "MOD_MOV[int id; String tipo; Date fecha[AAAA-MM-DD]]"},
         {"CU5 Gestionar Movimiento", "Eliminar Movimiento", "ELI_MOV[int id]"},
         {"CU5 Gestionar Movimiento", "Registar Detalle de Movimiento", "INS_DETMOV[int movimientoid; int productoid; int cantidad]"},
-        {"CU5 Gestionar Movimiento", "Listar Detalle de Movimiento", "LIST_DETMOV[]"},
+        {"CU5 Gestionar Movimiento", "Listar Detalle de Movimiento", "LIST_DETMOV[int id]"},
         {"CU5 Gestionar Movimiento", "Modificar Detalle de Movimiento", "MOD_DETMOV[int id; int movimientoid; int productoid; int cantidad]"},
         {"CU5 Gestionar Movimiento", "Eliminar Detalle de Movimiento", "ELI_DETMOV[int id]"},
 

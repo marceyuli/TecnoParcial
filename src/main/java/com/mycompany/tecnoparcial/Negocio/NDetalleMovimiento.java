@@ -10,7 +10,7 @@ public class NDetalleMovimiento extends Negocio {
         super(new DDetalleMovimiento());
     }
     public String listar(String id) throws IOException{
-        if (id.isEmpty()) {
+        if (!validarInteger(id)) {
             return "Debe introducir un id del movimiento";
         }
         DDetalleMovimiento dDetalleMovimiento = (DDetalleMovimiento) this.dato;

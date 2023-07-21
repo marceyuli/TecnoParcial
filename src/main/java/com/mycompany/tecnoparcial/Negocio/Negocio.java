@@ -176,7 +176,7 @@ public abstract class Negocio {
         return ParseUtils.tryParseFloat(dato);
     }
 
-    private boolean validarInteger(String dato) {
+    public boolean validarInteger(String dato) {
         return ParseUtils.tryParseInt(dato);
     }
 
