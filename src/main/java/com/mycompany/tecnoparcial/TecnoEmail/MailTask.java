@@ -86,7 +86,7 @@ public class MailTask implements Callable<MailSender> {
 
             //CU3: Gestionar Pedidos
             case Comandos.INS_PED:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nPedido.crear(datos);
@@ -95,37 +95,37 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nPedido.listar("Lista Pedidos");
                 break;
             case Comandos.MOD_PED:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nPedido.editar(datos);
                 break;
             case Comandos.ELI_PED:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nPedido.eliminar(datos[0]);
                 break;
             case Comandos.INS_DETPED:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nDetallePedido.crear(datos);
                 break;
             case Comandos.LIST_DETPED:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nDetallePedido.listar(datos[0]);
                 break;
             case Comandos.MOD_DETPED:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nDetallePedido.editar(datos);
                 break;
             case Comandos.ELI_DETPED:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nDetallePedido.eliminar(datos[0]);
@@ -133,7 +133,7 @@ public class MailTask implements Callable<MailSender> {
 
             //CU4: Gestionar Compras
             case Comandos.INS_COM:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nCompra.crear(datos);
@@ -142,19 +142,19 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nCompra.listar("Lista Compras");
                 break;
             case Comandos.MOD_COM:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nCompra.editar(datos);
                 break;
             case Comandos.ELI_COM:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nCompra.eliminar(datos[0]);
                 break;
             case Comandos.INS_DETCOM:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nDetalleCompra.crear(datos);
@@ -163,13 +163,13 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nDetalleCompra.listar(datos[0]);
                 break;
             case Comandos.MOD_DETCOM:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nDetalleCompra.editar(datos);
                 break;
             case Comandos.ELI_DETCOM:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nDetalleCompra.eliminar(datos[0]);
@@ -177,7 +177,7 @@ public class MailTask implements Callable<MailSender> {
 
             //CU5: Gestionar Movimientos
             case Comandos.INS_MOV:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nMovimiento.crear(datos);
@@ -186,19 +186,19 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nMovimiento.listar("Lista Movimientos");
                 break;
             case Comandos.MOD_MOV:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nMovimiento.editar(datos);
                 break;
             case Comandos.ELI_MOV:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nMovimiento.eliminar(datos[0]);
                 break;
             case Comandos.INS_DETMOV:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nDetalleMovimiento.crear(datos);
@@ -207,7 +207,7 @@ public class MailTask implements Callable<MailSender> {
                 mensaje = nDetalleMovimiento.listar(datos[0]);
                 break;
             case Comandos.MOD_DETMOV:
-                if (!verificarAdministrador() || !verificarEmpleado()) {
+                if (!verificarAdministrador() && !verificarEmpleado()) {
                     return "Necesitas tener permisos de administrador o empleado para hacer esto";
                 }
                 mensaje = nDetalleMovimiento.editar(datos);
@@ -300,12 +300,14 @@ public class MailTask implements Callable<MailSender> {
         try {
             String[] partesSubject = sub.split("\\[");
             String encabezado = partesSubject[0];
+            System.out.println(encabezado);
             String cuerpo[] = partesSubject[1].split("\\]");
             String datos[] = null;
             if (cuerpo.length != 0) {
                 datos = cuerpo[0].split("\\;");
                 for (int i = 0; i < datos.length; i++) {
                     datos[i] = datos[i].trim();
+                    System.out.println(datos[i]);
                 }
             }
             parsedList.push(encabezado);

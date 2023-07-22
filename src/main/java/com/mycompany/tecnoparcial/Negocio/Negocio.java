@@ -120,7 +120,6 @@ public abstract class Negocio {
     public String validarDatos(String[] datos) {
         String mensajeValidacion = "";
         try {
-
             String[] columnas = dato.getColums();
             if (datos.length != columnas.length) {
                 mensajeValidacion = "Cantidad de parametros incorrecta";

@@ -17,7 +17,7 @@ public class NUsuario extends Negocio {
             if (mensajeValidacion.length() > 1) {
                 return mensajeValidacion;
             }
-            if (args[5].toLowerCase() != "administrador" || args[5].toLowerCase() != "empleado") {
+            if (!args[5].toLowerCase().equals("administrador") && !args[5].toLowerCase().equals("empleado")) {
                 return "Solo pueden crearse usuarios administrador o empleado";
             }
             Object[] datosParseados = this.parsearDatos(args);

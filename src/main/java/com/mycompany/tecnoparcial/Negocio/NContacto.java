@@ -17,7 +17,7 @@ public class NContacto extends Negocio {
             if (mensajeValidacion.length() > 1) {
                 return mensajeValidacion;
             }
-            if (args[0].toLowerCase() != "proveedor" || args[0].toLowerCase() != "distribuidor") {
+            if (!args[0].toLowerCase().equals("proveedor") && !args[0].toLowerCase().equals("distribuidor")) {
                 return "Solo pueden crearse contactos de tipo proveedor o distribuidor";
             }
             Object[] datosParseados = this.parsearDatos(args);

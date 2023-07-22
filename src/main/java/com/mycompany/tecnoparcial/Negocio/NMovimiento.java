@@ -16,7 +16,7 @@ public class NMovimiento extends Negocio {
             if (mensajeValidacion.length() > 1) {
                 return mensajeValidacion;
             }
-            if (args[0].toLowerCase() != "ingreso" || args[5].toLowerCase() != "salida") {
+            if (!args[0].toLowerCase().equals("ingreso") && !args[5].toLowerCase().equals("salida")) {
                 return "Solo pueden crearse movimientos de tipo ingreso o salida";
             }
             Object[] datosParseados = this.parsearDatos(args);
