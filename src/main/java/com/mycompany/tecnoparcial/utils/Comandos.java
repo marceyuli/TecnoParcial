@@ -109,7 +109,7 @@ public class Comandos {
         //CU8 Gestionar Reportes
         {"CU8 Gestionar Reportes", "Listar Productos por categoria", "LIST_PRODBYCAT[String categoria]"},
         {"CU8 Gestionar Reportes", "Listar Productos mas vendidos", "LIST_PRODPOPULAR[]"},
-        {"CU8 Gestionar Reportes", "Listar Productos por categoria", "LIST_PRODREAB[]"},
+        {"CU8 Gestionar Reportes", "Listar Productos que necesitan reabastecimiento", "LIST_PRODREAB[]"},
         {"CU8 Gestionar Reportes", "Listar Stock", "LIST_STOCK[]"},
     };
     
