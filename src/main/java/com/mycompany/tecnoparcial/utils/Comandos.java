@@ -45,6 +45,7 @@ public class Comandos {
     public static final String LIST_PRODBYCAT = "LIST_PRODBYCAT";
     public static final String LIST_PRODPOPULAR = "LIST_PRODPOPULAR";
     public static final String LIST_PRODREAB = "LIST_PRODREAB";
+    public static final String LIST_STOCK = "LIST_STOCK";
 
 
     public static final String HELP = "HELP";
@@ -109,6 +110,7 @@ public class Comandos {
         {"CU8 Gestionar Reportes", "Listar Productos por categoria", "LIST_PRODBYCAT[String categoria]"},
         {"CU8 Gestionar Reportes", "Listar Productos mas vendidos", "LIST_PRODPOPULAR[]"},
         {"CU8 Gestionar Reportes", "Listar Productos por categoria", "LIST_PRODREAB[]"},
+        {"CU8 Gestionar Reportes", "Listar Stock", "LIST_STOCK[]"},
     };
     
 }

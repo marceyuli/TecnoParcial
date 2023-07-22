@@ -273,6 +273,9 @@ public class MailTask implements Callable<MailSender> {
             case Comandos.LIST_PRODREAB:
                 mensaje = nProducto.obtenerProductosReabastecimiento();
                 break;
+            case Comandos.LIST_STOCK:
+                mensaje = nProducto.obtenerStock();
+                break;
 
             //HELP
             case Comandos.HELP:
